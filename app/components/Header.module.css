@@ -1,0 +1,15 @@
+.nav {
+    padding: 10px;
+    color: rgb(231, 56, 20);
+}
+.nav:hover{
+    background-color: rgb(231, 56, 20);
+    color: aliceblue;
+    border-radius: 50px;
+    padding: 10px;
+}
+.dash{
+    width: 20px;
+    height:20px;
+    background-color: #28e9bf;
+}

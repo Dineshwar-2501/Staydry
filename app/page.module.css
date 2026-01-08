@@ -1,0 +1,27 @@
+
+.hero{
+    
+    
+    background-image: url(../public/staydry.jpg);
+    background-repeat: no-repeat;
+    background-position: center ;
+    background-size:cover ;
+    min-height: 90vh;
+    
+    
+}
+.headtitle{
+    font-weight: 900;
+    font-size: 80px;
+    color: rgb(255, 255, 255);
+    text-shadow:   0 3px  10px  rgb(93, 89, 89);
+    margin-top: 200px;
+    
+}
+.para{
+    color: rgb(255, 255, 255);
+    text-shadow:   0 3px  10px  rgb(93, 89, 89);
+    font-weight: bold;
+    font-size: large;
+    width: 200px;
+}

@@ -1,0 +1,26 @@
+.card {
+    background-color: rgba(144, 134, 134, 0.3);
+    // align-items: center;
+    // display: flex;
+    // justify-content: center;
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    margin: auto;
+
+    h1 {
+        transition: transform 0.2 ease;
+    }
+
+    &:hover {
+        transform: scale(1.02);
+
+        div {
+            h1 {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+
+}

@@ -1,0 +1,9 @@
+.button{
+    background: #e43715;
+    padding: 5px 15px;
+    border-radius: 50px;
+    /* font-size: large; */
+    font-weight: bold;
+    color: white;
+    margin: 10px
+}
