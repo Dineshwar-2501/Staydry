@@ -9,5 +9,7 @@ export type Product={
     category:string
     description:string
     rating:number
-
+    stock:number
+    minimumOrderQuantity:number
+    quantity:number
 }

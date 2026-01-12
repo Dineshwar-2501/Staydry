@@ -33,7 +33,7 @@ export default function Header() {
                     <Link href={''}>
                         <Image   width={20} height={20} alt="Search" className="inline -mt-2 mr-2" src={search} />
                     </Link>
-                    <Link className= {style.nav} href="">Cart</Link>
+                    <Link className= {style.nav} href="/cart">Cart</Link>
                     <Image src={line} alt="line" width={30} className="inline -m-1" />
                     <Link  className= {style.nav}href=""><span>Menu </span><Image   width={20} height={20} className="inline -mt-1" src={menu} alt="Menu" /></Link>
                 </div>
