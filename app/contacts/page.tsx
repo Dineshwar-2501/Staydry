@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import chat from "@/public/Icons/chat.png"
 import mail from "@/public/Icons/email.png"
@@ -42,17 +43,20 @@ export default function Page() {
                         <form action={callus} className="flex flex-col w-full">
                             
                             {/* <label htmlFor="name"></label> */}
-                            <input className={styles.inp} type="text" id="name" name="name"  placeholder="Name"/>
+                            <input required  className={styles.inp} type="text" id="name" name="name"  placeholder="Name"/>
                             {/* <label htmlFor="phone"></label> */}
-                            <input className={styles.inp} type="text" id="phone" name="phone"  placeholder="Phone Number"/>
+                            <input required  className={styles.inp} type="text" id="phone" pattern="[0-9]{10}" name="phone"  placeholder="Phone Number"/>
                             {/* <label htmlFor="mail"></label> */}
-                            <input className={styles.inp} type="email" id="mail" name="mail"  placeholder="Email"/>
+                            <input required  className={styles.inp} type="email" id="mail" name="mail"  placeholder="Email"/>
                             <label htmlFor="date" className="mt-4"> Prefered Date for call back </label>
-                            <input className={`${styles.inp} `} type="date" id="date" name="date"  placeholder="dd-mm-yyyy"/>
+                            <input required  className={`${styles.inp} `} type="date" id="date" name="date"  placeholder="dd-mm-yyyy"/>
                             {/* <label htmlFor="comment"></label> */}
                             <textarea className="border mt-2" id="comment" name="comment"  placeholder="Comment" rows={5} cols={20}/>      
 
-                            <Button className="w-fit " type="submit">Submit</Button>      
+                            <div className="flex ">
+                                <Button className="w-fit " type="submit" >Submit</Button>
+                                <Button className="w-fit " type="reset">Reset</Button>
+                            </div>    
                             </form>
                         <p className={`${styles.title} p-2`}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid reiciendis iste provident nobis omnis corporis ullam eos ducimus, quis eius quod blanditiis facere numquam, quidem fugiat perferendis. Atque, iure quisquam.</p>
                         
