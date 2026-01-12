@@ -1,6 +1,13 @@
 "use server"
+export type obiDetail={
+    name:string,
+    phone:number,
+    email:string,
+    date:string,
+    comment:string
+}
 
-export default async function callus(formdata:FormData) {
+export default async function callus(formdata:FormData):Promise<obiDetail> {
 
     const name=formdata.get('name') as string
     console.log(`The Name is  : ${name}`)
@@ -11,10 +18,12 @@ export default async function callus(formdata:FormData) {
     const obiDetail={
         name:data.name as string,
         phone:Number(data.phone),
-        Email:data.mail as string,
-        Date :data.date as string,
+        email:data.mail as string,
+        date :data.date as string,
         comment:data.comment as string
     }
     
     console.log(obiDetail)
+    return obiDetail;
+
 }

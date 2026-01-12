@@ -32,7 +32,7 @@ export default  function ProductList({ page, sorted }: productProp) {
                 <option value="name-asc">Name: A–Z</option>
             </select>
 
-            <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 px-5'>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 px-5'>
                 {sorted.map((product) => (
                     <div key={product.id}>
                         <ProductCard product={product} />

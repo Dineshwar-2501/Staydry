@@ -3,8 +3,10 @@ import QuantityControl from '@/app/components/Quantitycontrol'
 import { notFound } from 'next/navigation';
 // import Button from '@/app/utilities/Button';
 import { Product } from '@/types/productType';
-
+import backarrow from '@/public/Icons/arrow.png'
 import fetchProduct from '@/lib/fetchProduct';
+import LinkCompo from '@/app/utilities/LinkCompo';
+
 
 export default async function Page({ params }: { params: Promise<{ id: string }>; }) {
 
@@ -18,9 +20,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     if (!product) notFound();
 
 
-    return (
+    return (<div>
+        <LinkCompo href='/products' className='flex w-fit gap-3'>
+        
+            <Image src={backarrow} width={20} height={20} alt="arrow" /><p>Back</p>
+        
+        </LinkCompo>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 mt-5'>
-
             <div className='col-span-1'>
                 {product?.images?.map((image, index) => (
                     <Image
@@ -31,19 +37,18 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                         height={200}
                     />
                 ))}
-
-
             </div>
             <div className='col-span-2'>
                 <h1 className='text-2xl font-bold text-orange-500 p-3'>{product?.title}</h1>
                 <hr className='p-3' />
                 <p className='text-sm p-3 text-gray-600 font-medium'>{product?.description}</p>
                 <div className="flex justify-between p-2">
-                    <p className='text-2xl font-bold text-orange-500  bg-amber-200 rounded-full p-5'>Rs.{product?.price} </p>
+                    {/* <p className='text-2xl font-bold text-orange-500  bg-amber-200 rounded-full p-5'>Rs.{product?.price} </p> */}
                     <QuantityControl fetchedProduct={product} />
-                    
+                    {/* <Button onClick={()=>{addtoCart(prodwithqty)}}>Add to cart</Button> */}
                 </div>
             </div>
         </div>
-    );
+
+    </div>);
 }

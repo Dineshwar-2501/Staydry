@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Button from "../utilities/Button";
-import tarrow from "@/public/Icons/download.webp"
+import tarrow from "@/public/Icons/arrow-up-mark.png"
 import { useEffect, useState } from "react";
 export default function ScrolltoTop() {
 
@@ -27,12 +27,12 @@ export default function ScrolltoTop() {
     return (
         <div>
             {!showtop &&  <Button
-                className={`fixed bottom-0 right-0 p-10 rounded-full `}
+                className={`fixed bottom-0 right-0   rounded-full  `}
                 onClick={() => { handlescroll() }}
                 
             >
 
-                <Image src={tarrow} alt='arrow' width={20} className=" m-5" height={20} />
+                <Image src={tarrow} alt='arrow' width={30}  height={30} className="py-3 mx-1  mask-add" />
 
             </Button>}
         </div>
