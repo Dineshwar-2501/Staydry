@@ -6,6 +6,8 @@ import { Product } from '@/types/productType';
 import backarrow from '@/public/Icons/arrow.png'
 import fetchProduct from '@/lib/fetchProduct';
 import LinkCompo from '@/app/utilities/LinkCompo';
+import Swiper from '@/app/utilities/Swiper';
+
 
 
 export default async function Page({ params }: { params: Promise<{ id: string }>; }) {
@@ -22,12 +24,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
     return (<div>
         <LinkCompo href='/products' className='flex w-fit gap-3'>
-        
+
             <Image src={backarrow} width={20} height={20} alt="arrow" /><p>Back</p>
-        
+
         </LinkCompo>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 mt-5'>
-            <div className='col-span-1'>
+        <div className='grid grid-cols-1 lg:grid-cols-4 gap-2 mt-5'>
+            <div className='col-span-1 col-start-1'>
                 {product?.images?.map((image, index) => (
                     <Image
                         key={index}
@@ -38,7 +40,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                     />
                 ))}
             </div>
-            <div className='col-span-2'>
+            <div>
+                <Swiper images={product.images}/>
+            </div>
+            <div className='col-span-2 col-end-5'>
                 <h1 className='text-2xl font-bold text-orange-500 p-3'>{product?.title}</h1>
                 <hr className='p-3' />
                 <p className='text-sm p-3 text-gray-600 font-medium'>{product?.description}</p>
