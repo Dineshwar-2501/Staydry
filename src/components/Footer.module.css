@@ -1,14 +1,12 @@
 .button {
     background: #e43715;
-    padding: 5px 15px;
+    padding: 0.5rem 2rem;
     border-radius: 50px;
     /* font-size: large; */
-    font-weight: bold;
+    font-weight:lighter;
     color: white;
     margin: 10px;
-    position:absolute;
-    top:-9px;
-    right: 2px;
+    
 
 }
 
@@ -16,6 +14,7 @@
     width: clamp(10px, 6vw, 40px);
     height: auto;
     aspect-ratio:1/1;
+    object-fit: contain;
 
     
 }

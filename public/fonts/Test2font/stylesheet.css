@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Sohne';
+    src: url('Sohne-Buch.woff2') format('woff2'),
+        url('Sohne-Buch.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sohne';
+    src: url('Sohne-Fett.woff2') format('woff2'),
+        url('Sohne-Fett.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sohne';
+    src: url('Sohne-Halbfett.woff2') format('woff2'),
+        url('Sohne-Halbfett.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

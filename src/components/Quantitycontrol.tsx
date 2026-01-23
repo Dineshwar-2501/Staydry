@@ -1,9 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
-import Button from "../utilities/Button";
-import checked from "@/public/Icons/check.png"
+import Button from "@/utilities/Button";
 import { Product } from "@/types/productType";
-import useCart from "../hooks/useCart";
+import useCart from "@/hooks/useCart";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -58,7 +57,7 @@ export default function QuantityControl({ fetchedProduct }: prodProp) {
                     transition={{ duration: 0.5 }}
 
                     className="flex gap-2 items-center bg-yellow-200 drop-shadow-2xl px-5 rounded-full  py-5 fixed bottom-0 right-0">
-                    <Image src={checked} alt="Correct" width={20} height={20} />
+                    <Image src='/Icons/check.png' alt="Correct" width={20} height={20} />
                     <p className="text-2xl font-bold">Added to the Cart</p>
 
                 </motion.div>

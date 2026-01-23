@@ -1,51 +1,77 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import logosd from '@/public/Logosd.png'
-import call from '@/public/Icons/phone-call.png'
-import search from '@/public/Icons/search.png'
-import menu from '@/public/Icons/menu.png'
-import style from './Header.module.css'
-import line from '@/public/Icons/line.png'
 import { useState } from "react";
 import { motion } from "framer-motion";
-
+import style from './Header.module.css'
+import { CallIcon, MenuIcon, SearchIcon } from "@/svgComponents/Icon";
 export default function Header() {
     const [open, setOpen] = useState(false)
     return (
-        <header>
-            <div className="flex justify-between p-2 text-center items-center container mx-auto px-4 xl:px-10  ">
+        <header className=" fixed top-0  z-10 w-full bg-amber-50 " >
+            {/* logo */}
+            <div className="  mx-auto px-4 xl:px-10">
 
-                <Link href='/' className="logo flex gap-2 ">
-                    {/* <div className="logo flex  gap-2"></div> */}
-                    <Image width={30} height={20} src={logosd} alt="StayDry-Logo" />
-                    <h1 className="text-sm xl:text-3xl font-extrabold xl:ps-5">STAY DRY</h1>
-                </Link>
+                <div className="flex  justify-between pt-2 border-b">
+                    <div className="flex gap-3 items-center max-w-70  ">
+                        <Link href='/' >
+                            <Image src='/Icons/logo.svg' width={180} height={20} alt="StayDry-Logo" className="object-cover " />
+                        </Link>
+                        {/* <Link href='/' >
+                            <Image src='/Icons/Staydry-Kids.svg' width={180} height={20} alt="StayDry-Logo" className="object-cover " />
+                        </Link> */}
+                    </div>
+                    <button
+                        type="button"
+                        title="menu"
+                        className=" gap-2 items-center hidden md:flex"
+                        onClick={() => setOpen(prev => !prev)}
+                    >
+                        <Image width={20} height={20} src='/Icons/menu.png' alt="Menu" />
+                        MENU
+                    </button>
+                </div>
 
-                <div className="navbar flex flex-row p-2 text-center items-center px-5">
-                    <div className="hidden xl:flex gap-2">
+
+
+
+
+                {/* navbar */}
+
+                <div className="navbar flex flex-row py-5 text-center justify-end lg:justify-between items-center  ">
+                    <div className="hidden lg:flex gap-2">
                         <Link className={style.nav} href="/products">Shop All</Link>
                         <Link className={style.nav} href="">Underwear</Link>
                         <Link className={style.nav} href="">Bedding&Home</Link>
                         <Link className={style.nav} href="">Mobility</Link>
                         <Link className={style.nav} href="">Toilet Training</Link>
                         <Link className={style.nav} href="">Bundles</Link>
+                        <Link className={style.nav} href="/contacts">Contacts</Link>
 
                     </div>
-                    <Image src={line} alt="line" width={30} className="xl:inline hidden " />
-                    <Link className='mx-4 hover:border-b-2' href="/contacts">  <Image width={20} height={20} alt="Call" src={call} className="inline -mt-2" /> <span className="hidden md:inline text-orange-500">Call </span> </Link>
-                    <Image src={line} alt="line" width={30} className="xl:inline hidden " />
-                    <Link href={'/products'} className=" hover:border-b-2">
-                        <Image alt="Search" className="w-5   aspect-square inline -mt-2 mr-2" src={search} />
-                    </Link>
-                    <Link className={style.nav} href="/cart">Cart</Link>
-                    <Image src={line} alt="line" width={30} className="inline xl:hidden " />
-                    <button
-                        type="button"
-                        title="menu"
-                        className={` xl:hidden `}
-                        onClick={() => setOpen(prev => !prev)}
-                    ><Image width={20} height={20} src={menu} alt="Menu" /></button>
+                    <div className="flex  items-center">
+
+                        <Link href={'/products'} className=" ">
+                            <SearchIcon className="text-black w-8"/>
+                        </Link>
+
+                        <Image src='/Icons/line.png' alt="line" width={30} height={20} />
+                        <Link className='  flex' href="tel:1800684876">
+                            <CallIcon className="w-10"/>
+                            <span className="mx-2 text-lg font-bold">Call </span>
+                        </Link>
+                        <Image src='/Icons/line.png' alt="line" width={30} height={20} />
+                        <Link className=" me-3 text-lg" href="/cart">Cart</Link>
+
+
+                        <button
+                            type="button"
+                            title="menu"
+
+                            onClick={() => setOpen(prev => !prev)}
+                        ><MenuIcon/>
+                        </button>
+                    </div>
                 </div>
 
                 {open &&
@@ -53,7 +79,7 @@ export default function Header() {
                     <motion.div
                         initial={{ opacity: 0, y: -50 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
+                        // exit={{ opacity: 0, y: -20 }}
 
                         transition={{ duration: 0.5 }}
                         className="absolute top-20 w-full z-1 p-4 right-0 flex flex-col bg-gray-300 shadow-2xl gap-2">
@@ -64,11 +90,14 @@ export default function Header() {
                         <Link className={style.nav} href="">Mobility</Link>
                         <Link className={style.nav} href="">Toilet Training</Link>
                         <Link className={style.nav} href="">Bundles</Link>
+                        <Link className={style.nav} href="/contacts">Contacts</Link>
+
 
                     </motion.div>
 
                 }
             </div>
+
 
 
         </header>

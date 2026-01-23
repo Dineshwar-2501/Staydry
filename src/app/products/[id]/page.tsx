@@ -3,7 +3,7 @@ import QuantityControl from '@/components/Quantitycontrol'
 import { notFound } from 'next/navigation';
 // import Button from '@/utilities/Button';
 import { Product } from '@/types/productType';
-import backarrow from '@/public/Icons/arrow.png'
+
 import fetchProduct from '@/lib/fetchProduct';
 import LinkCompo from '@/utilities/LinkCompo';
 import Swiper from '@/utilities/Swiper';
@@ -16,20 +16,20 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     const { id } = await params
 
 
-    const product: Product = await fetchProduct({ id })
+    const product: Product | null = await fetchProduct({ id })
 
 
     if (!product) notFound();
 
 
     return (
-        <section className=' container px-10 mx-auto'>
+        <section className='   px-10 mx-auto'>
             <LinkCompo href='/products' className='flex w-fit gap-3'>
 
-                <Image src={backarrow} width={20} height={20} alt="arrow" /><p>Back</p>
+                <Image src='/Icons/arrow.png' width={20} height={20} alt="arrow" /><p>Back</p>
 
             </LinkCompo>
-            <div className='grid grid-cols-1 xl:grid-cols-6 gap-5 mt-5 items-center'>
+            <div className='grid grid-cols-1 lg:grid-cols-6 gap-5 mt-5 items-center'>
                 <div className='col-span-1 col-start-1 mx-5 p-10'>
                     {product?.images?.map((image, index) => (
                         <Image

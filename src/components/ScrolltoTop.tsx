@@ -1,8 +1,8 @@
 "use client"
 
 import Image from "next/image";
-import Button from "../utilities/Button";
-import tarrow from "@/public/Icons/arrow-up-mark.png"
+import Button from "@/utilities/Button";
+
 import { useEffect, useState } from "react";
 export default function ScrolltoTop() {
 
@@ -32,7 +32,7 @@ export default function ScrolltoTop() {
                 
             >
 
-                <Image src={tarrow} alt='arrow' width={30}  height={30} className="py-3 mx-1  " />
+                <Image src='/Icons/arrow-up-mark.png' alt='arrow' width={30}  height={30} className="py-3 mx-1  " />
 
             </Button>}
         </>

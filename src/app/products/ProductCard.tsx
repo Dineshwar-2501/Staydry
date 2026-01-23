@@ -12,17 +12,19 @@ export default function ProductCard({ product }: productprop) {
 
             <div className={styles.card}>
 
-                <Link
-                    href={`/products/${product.id}`} >   <Image src={`${product?.thumbnail}`} width={200} height={200} alt={product.title} className='mx-auto' />
+                <Link href={`/products/${product.id}`} >
+                    <div className={`${styles.card}`} >
+                        <Image src={`${product?.thumbnail}`} fill alt={product.title} className='mx-auto -z-10 object-cover' />
+                    </div>
                 </Link>
-                <div className=' bg-amber-600'>
+                <div className=' bg-[#d4410b]'>
                     <Link
 
-                        href={`/products/${product.id}`} >  <h1 className={` text-lg text-white text-center w-full p-2 font-bold `}>{product?.title}</h1>
+                        href={`/products/${product.id}`} >  <h1 className={`  text-white text-center p-2  `}>{product?.title}</h1>
                     </Link>
                 </div>
 
-                <p className=' bg-yellow-200 text-black text-center w-full rounded-b-2xl p-2 font-bold '> From Rs.{product.price.toFixed(2)}</p>
+                <p className=' bg-yellow-200 text-black text-center   p-2 '> From Rs.<span className='font-bold'>{product.price.toFixed(2)}</span></p>
             </div >
 
 

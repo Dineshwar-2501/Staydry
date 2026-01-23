@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import {Amita } from "next/font/google";
+import {Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrolltoTop from "@/components/ScrolltoTop";
+import { sohne } from './font'
 
-const amitasans = Amita({
-  weight:'400',
-  variable: "--font-amita-sans",
+const Int = Inter({
+  weight:['400','500','600'],
+  variable: "--font-Inter",
   subsets: ["latin"],
 });
 
@@ -23,17 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${amitasans.variable}   antialiased  `}
-      >
-        <ScrolltoTop/>
-        <Header/>
-        <main>
+    <html lang="en" className={Int.variable}>
+      <body className={` antialiased  `} >
+        <ScrolltoTop />
+        <Header />
+        <main >
           {children}
-          </main>
-        
-        <Footer/>
+        </main>
+
+        <Footer />
       </body>
     </html>
   );

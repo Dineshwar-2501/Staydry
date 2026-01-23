@@ -1,6 +1,7 @@
 .nav {
     padding: 10px;
     color: rgb(231, 56, 20);
+    font-family: var(--font-sohne);
 }
 .nav:hover{
     background-color: rgb(231, 56, 20);
