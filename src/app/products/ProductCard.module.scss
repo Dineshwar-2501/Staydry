@@ -1,0 +1,18 @@
+.card {
+    width: 326px;
+    // height: clamp(436px,4vh,326px);
+    height:326;
+    border-radius: 2px;
+    
+
+    position:relative;
+
+
+    h1 {
+        transition: transform 0.2 ease;
+    }
+
+ 
+
+
+}

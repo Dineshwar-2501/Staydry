@@ -1,0 +1,139 @@
+.hero {
+
+
+    // background-image: url('/Images/Heroimage.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    
+    min-height: 100vh;
+
+
+
+    &__title {
+        font-weight: 500;
+        font-size: clamp(2.5rem, 6.5vw, 6.5rem);
+        max-width:60%;
+        color: rgb(255, 255, 255);
+        line-height:clamp(2.5rem, 6.5vw, 6.5rem)
+        // text-shadow: 0 3px 10px rgb(93, 89, 89);
+
+
+    }
+
+    &__para {
+        color: rgb(255, 255, 255);
+        // max-width:20%;
+        // text-shadow: 0 3px 10px rgb(93, 89, 89);
+        // font-weight: bold;
+        font-size: large;
+
+    }
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+
+    &__no {
+        color: #d4410b
+    }
+
+    &__separator {
+        display: inline-block;
+        background-color: #d4410b;
+        width: 25px;
+        height: 1.5px;
+        text-align: center;
+        // padding: 5px ;.
+        margin-inline: 5px;
+    }
+
+    &__title {
+        text-transform: capitalize;
+    }
+}
+
+/* Scoped styles */
+.heropagination {
+    position: relative;
+    bottom: 2rem;
+    // transform: translate(-100px, -150px);
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    // padding: 30px;
+    // position: absolute;
+
+
+    //     &__bullet {
+    //         width: 10px;
+    //         height: 10px;
+    //         background: #aaa;
+    //         border-radius: 999px;
+    //         opacity: 0.5;
+    //         transition: all 0.3s ease;
+    //     }
+
+    //     &--active {
+    //         width: 24px;
+    //         background: white;
+    //         opacity: 1;
+    //     }
+}
+
+
+/* Bullet styles — GLOBAL because Swiper injects them */
+:global(.heropagination__bullet) {
+    cursor: pointer;
+    width:100px;
+    height: 2.5px;
+    background: #aaa;
+    
+    // box-shadow: 2px 0px 5px black;
+}
+
+:global(.heropagination__bullet--active) {
+    background: rgb(255, 255, 255);
+    color: white;
+    opacity: 1;
+    z-index: 10;
+}
+
+.context {
+    position: relative;
+    bottom: 2rem;
+    // transform: translate(-110px, -150px);
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    font-size: clamp(0.8rem, 1.25vw, 1.5rem);
+    // padding-inline: 30px;
+    padding-block:20px;
+    text-align: left;
+    
+}
+
+// .heroPrev,
+// .heroNext {
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     z-index: 20;
+//     cursor: pointer;
+//     color: white;
+//     font-size: 2rem;
+// }
+
+// .heroPrev {
+//     left: 20px;
+// }
+
+// .heroNext {
+//     right: 20px;
+// }

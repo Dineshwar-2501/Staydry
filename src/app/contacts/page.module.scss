@@ -1,0 +1,40 @@
+.title {
+    font-size: 20px;
+    color: #d4410b;
+    font-weight: bold;
+}
+
+.input {
+    border-bottom: 2px solid black;
+    padding-block: 10px;
+
+    &::placeholder{
+        color:black;
+        font-size: large;
+    }
+}
+
+
+.heading {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+
+    &__no {
+        color: #d4410b
+    }
+
+    &__separator {
+        display: inline-block;
+        background-color: #d4410b;
+        width: 25px;
+        height: 1.5px;
+        text-align: center;
+        // padding: 5px ;.
+        margin-inline: 5px;
+    }
+
+    &__title {
+        text-transform: capitalize;
+    }
+}

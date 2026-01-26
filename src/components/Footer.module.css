@@ -1,0 +1,33 @@
+.button {
+    background: #e43715;
+    padding: 0.5rem 2rem;
+    border-radius: 50px;
+    /* font-size: large; */
+    font-weight:lighter;
+    color: white;
+    margin: 10px;
+    
+
+}
+
+.imageWidth {
+    width: clamp(10px, 6vw, 40px);
+    height: auto;
+    aspect-ratio:1/1;
+    object-fit: contain;
+
+    
+}
+
+.input:focus::placeholder
+
+{
+    transform: translateY(-15px) ;
+    transition-duration: 0.5s;
+    font-weight:bolder;
+    font-size: larger;
+    color: black;
+
+
+}
+
