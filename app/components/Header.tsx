@@ -7,6 +7,7 @@ import menu from '@/public/Icons/menu.png'
 import style from './Header.module.css'
 import line from '@/public/Icons/line.png'
 export default function Header() {
+    
     return (
         <>
             <div className="flex justify-between p-2 text-center items-center px-5  ">
@@ -30,10 +31,10 @@ export default function Header() {
                     
                     <Link  className= {style.nav}href="/contacts"> <Image   width={20} height={20} alt="Call" src={call} className="inline -mt-2"/> Call</Link>
                     <Image src={line} alt="line" width={30} className="inline -m-1" />
-                    <Link href={''}>
+                    <Link href={'/products'}>
                         <Image   width={20} height={20} alt="Search" className="inline -mt-2 mr-2" src={search} />
                     </Link>
-                    <Link className= {style.nav} href="">Cart</Link>
+                    <Link className= {style.nav} href="/cart">Cart</Link>
                     <Image src={line} alt="line" width={30} className="inline -m-1" />
                     <Link  className= {style.nav}href=""><span>Menu </span><Image   width={20} height={20} className="inline -mt-1" src={menu} alt="Menu" /></Link>
                 </div>
