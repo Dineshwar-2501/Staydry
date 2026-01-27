@@ -60,7 +60,7 @@ export default function ProductList({ category, page, sort, Apiproduct, totalPag
 
     return (
         <div >
-            <div className="flex  flex-row my-5">
+            <div className="flex  flex-col lg:flex-row  my-5">
                 <select
                     title='sorting'
                     className='bg-gray-900/20 rounded-full shadow px-10 py-3 m-3 '
@@ -84,11 +84,11 @@ export default function ProductList({ category, page, sort, Apiproduct, totalPag
                 </div>
             </div>
 
-            <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 '>
+            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  '>
                 {finalProduct.map((product) => (
-                    <div key={product.id}>
-                        <ProductCard product={product} />
-                    </div>
+                    
+                        <ProductCard product={product} key={product.id} />
+                    
                 ))}
 
 
