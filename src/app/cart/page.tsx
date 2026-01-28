@@ -4,6 +4,7 @@ import Button from "@/utilities/Button";
 import useCart from '@/hooks/useCart'
 // import { useState } from "react";
 import LinkCompo from "@/utilities/LinkCompo";
+import { BackIcon } from "@/svgComponents/Icon";
 export default function Page() {
     const { cart, clearCart, removeItem } = useCart()
     // const cart: Product[] = getCart()
@@ -13,10 +14,11 @@ export default function Page() {
     if (cart.length === 0) {
         return <Image src='/Images/emptycart.webp' width={500} height={500} className=" object-contain mt-40 mx-auto items-center" alt='cart is Empty' />
     }
-    return (<div className="mt-20">
+    return (<div className="mt-40">
         <LinkCompo href='/products' className='flex w-fit gap-3'>
 
-            <Image src='/Icons/arrow.png' width={20} height={20} alt="arrow" /><p>Back</p>
+            {/* <Image src='/Icons/arrow.png' width={20} height={20} alt="arrow" /> */}
+            <BackIcon  /> <p>Back</p>
 
         </LinkCompo>
         <div className="flex flex-col lg:flex-row flex-wrap gap-10  w-fit mx-auto">

@@ -1,0 +1,35 @@
+.nav {
+    padding: 10px;
+    color: rgb(231, 56, 20);
+    font-family: var(--font-sohne);
+
+    &:hover {
+        background-color: rgb(231, 56, 20);
+        color: aliceblue;
+        border-radius: 50px;
+        padding: 10px;
+    }
+}
+
+// flex justify-between pt-2 border-b border-[#dc410b] 
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    // padding-top: 2px;
+    border-bottom: 1px solid #d4410b;
+
+
+    &__logo--active {
+        border: 1px solid#d4410b;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            z-index: 20;
+            background-color: white;
+            border-bottom: none;
+            transform: translateY(1px);
+    }
+
+
+}
+

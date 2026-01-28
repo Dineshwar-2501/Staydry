@@ -13,6 +13,7 @@ import Image from 'next/image';
 import Button from '@/utilities/Button';
 import { heroslide } from '@/data/heroslide';
 import Link from 'next/link';
+import { ComfyIcon, PayIcon, StarIcon, WaterproofIcon } from '@/svgComponents/Icon';
 export default function Page() {
     return (
         <>
@@ -122,7 +123,7 @@ export default function Page() {
 
 
 
-            {/* <section className='  mx-auto lg:px-10 px-4'>
+            <section className='  mx-auto lg:px-10 px-4'>
                 <hr />
                 <h1 className={styles.heading}>
                     <span className={styles.heading__no}>00</span>
@@ -130,49 +131,71 @@ export default function Page() {
                     <span className={styles.heading__title}> shop your way</span>
                 </h1>
                 <div className={`${styles.offer} flex flex-col lg:flex-row`}>
-                    <div>
-                        <Image src={"/Girl.jpg"} alt='bed' 
-                            width={200}
-                            height={200}
+                    <div className={styles.offer__card} >
+                        <StarIcon className={styles.offer__star} />
+                        <Image className={styles.offer__image} fill src={"/Images/Girls.webp"} alt='bed'
+
                         />
                         <h1 className={styles.offer__title}>Save #0 % off Bundles</h1>
                     </div>
-                    <div>
-                        <Image src={""} alt='' />
+                    <div className={styles.offer__card} >
+                        <StarIcon className={styles.offer__star} />
+                        <Image className={styles.offer__image} fill src={"/Images/Bed-og.webp"} alt='' />
                         <h1 className={styles.offer__title}> Continence Undewear</h1>
                     </div>
-                    <div>
-                        <Image src={""} alt='' />
+                    <div className={styles.offer__card} >
+                        <StarIcon className={styles.offer__star} />
+                        <Image className={styles.offer__image} fill src={"/Images/WraterProof-Bed.webp"} alt='' />
                         <h1 className={styles.offer__title}> Mobility Sheet</h1>
                     </div>
-                    <div>
-                        <Image src={""} alt='' />
+                    <div className={styles.offer__card} >
+                        <StarIcon className={styles.offer__star} />
+                        <Image className={styles.offer__image} fill src={"/Images/Potty.webp"} alt='' />
                         <h1 className={styles.offer__title}>Kids Toilet Tranining</h1>
                     </div>
 
                 </div>
-                <div>
-                    <Image src={""} alt='' />
-                    <p>100% Waterproof</p>
-                    <Image src={""} alt='' />
-                    <p>Comfy Guarantee</p>
-                    <Image src={""} alt='' />
-                    <p>Pay Later</p>
+                <div className="grid grid-cols-4 mt-30">
+                    <div className='col-span-3'>
+                        <div className='flex items-center gap-3'>
+                            <div className="flex gap-2 items-center">
+                                <WaterproofIcon/>
+                                <p>100% Waterproof</p>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <ComfyIcon/>
+                                <p>Comfy Guarantee</p>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <PayIcon/>
+                                <p>Pay Later</p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div>
+                            <p className='text-3xl text-blue-500 py-10'>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia libero asperiores provident dignissimos obcaecati, eum vitae. Optio molestias dolorum perspiciatis!
+                            </p>
+                        </div>
+                        <div className='flex py-10 gap-3'>
+                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/Paypal.png"} alt='' />
+                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/indis.png"} alt='' />
+                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/master.png"} alt='' />
+                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/visa.png"} alt='' />
+                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/zpay.png"} alt='' />
+                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/afterpay.png"} alt='' />
+                        </div>
+                    </div>
+                    <div className='col-span-1 flex items-end flex-col'>
+                        <p>Lorem ipsum dolor sit amet consectetur.</p>
+                        <Button>Find out how</Button>
+                    </div>
                 </div>
-                <hr />
-                <div>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia libero asperiores provident dignissimos obcaecati, eum vitae. Optio molestias dolorum perspiciatis!
-                    </p>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <Button>Find out how</Button>
-                </div>
-
-                
-
                 <hr />
 
             </section >
+
+            {/*
             <section className='  mx-auto lg:px-10 px-4'>
                 <h1 className={styles.heading}>
                     <span className={styles.heading__no}>02</span>
@@ -192,7 +215,7 @@ export default function Page() {
                     </div>
                 </div>}
                 <p>AS SEEN IN</p>
-                
+
             </section>
             <section className='  mx-auto lg:px-10 px-4'>
                 <hr />

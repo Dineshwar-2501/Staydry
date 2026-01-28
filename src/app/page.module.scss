@@ -5,7 +5,7 @@
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
-    
+
     min-height: 100vh;
 
 
@@ -13,10 +13,9 @@
     &__title {
         font-weight: 500;
         font-size: clamp(2.5rem, 6.5vw, 6.5rem);
-        max-width:60%;
+        max-width: 60%;
         color: rgb(255, 255, 255);
-        line-height:clamp(2.5rem, 6.5vw, 6.5rem)
-        // text-shadow: 0 3px 10px rgb(93, 89, 89);
+        line-height: clamp(2.5rem, 6.5vw, 6.5rem) // text-shadow: 0 3px 10px rgb(93, 89, 89);
 
 
     }
@@ -55,7 +54,58 @@
     }
 }
 
-/* Scoped styles */
+.offer {
+
+    display: flex;
+    gap: 6px;
+
+    &__title {
+        background-color: #d4410b;
+        color: white;
+        transition: transform 0.4 ease;
+        position: absolute;
+        width: 100%;
+        padding: 10px;
+        bottom: 0;
+        text-align: center;
+        font-weight: bold;
+    }
+    &__star{
+        position: absolute;
+        top:50px;
+        right:10px;
+        z-index: 10;
+    }
+
+    &__image {
+        transition: transform 0.4 ease;
+        object-fit: cover;
+        z-index: -10;
+    }
+
+    &__card {
+        width: 100%;
+        aspect-ratio: 4/5;
+        position: relative;
+        overflow: hidden;
+
+        &:hover .offer__image {
+            transform: scale(1.05);
+        }
+
+        &:hover .offer__title {
+            transform: scale(1.1);
+            font-weight: bolder;
+            // transform: translateY(-10px);
+        }
+    }
+
+}
+
+
+
+
+
 .heropagination {
     position: relative;
     bottom: 2rem;
@@ -89,10 +139,10 @@
 /* Bullet styles — GLOBAL because Swiper injects them */
 :global(.heropagination__bullet) {
     cursor: pointer;
-    width:100px;
+    width: 100px;
     height: 2.5px;
     background: #aaa;
-    
+
     // box-shadow: 2px 0px 5px black;
 }
 
@@ -114,9 +164,9 @@
     gap: 10px;
     font-size: clamp(0.8rem, 1.25vw, 1.5rem);
     // padding-inline: 30px;
-    padding-block:20px;
+    padding-block: 20px;
     text-align: left;
-    
+
 }
 
 // .heroPrev,
