@@ -2,118 +2,173 @@
 import { Product } from '@/types/productType';
 import ProductCard from './ProductCard';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import styles from './ProductList.module.scss'
-import { useEffect, useMemo, useState } from 'react';
-import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useFilter from '@/hooks/useFilter';
+import { Orderoption, Sortoption } from '@/types/sortType';
+import { DownChevronIcon, SearchIcon } from '@/svgComponents/Icon';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useFetchCategories } from '@/hooks/useFetchCategories';
+import { catapi } from '@/types/catgeoryType';
+import useInfiniteFetch from '@/hooks/useInfinteFetch';
 
-import { Sortoption } from '@/types/sortType';
-import { SearchIcon } from '@/svgComponents/Icon';
+
 
 type productProp = {
     page: number,
-    sort: Sortoption,
+    q: string,
+    category?: string,
+    sortBy: Sortoption,
+    order: Orderoption,
     Apiproduct: Product[]
     totalPages: number,
     arrayPages: number[],
-    category?: string
+
 }
 
-export default function ProductList({ category, page, sort, Apiproduct, totalPages, arrayPages }: productProp) {
+export default function ProductList({ page, sortBy, order, category, q, Apiproduct, totalPages, arrayPages }: productProp) {
 
-    const { fetchSearch, fetchSort } = useFilter()
+    const { handelSearch, handleSort, handelCategory, handleOrder } = useFilter()
 
-    // const sortedProducts = fetchSort(Apiproduct, sort)
-    const [query, setQuery] = useState('')
+    // const { data: scrollData, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteFetch({ sortBy, order, q, category })
+    // const allproduct:Product[] = scrollData?.pages.flatMap(p => p.products) ??[]
 
-    const [searchdata, setSearchdata] = useState<Product[]>(Apiproduct)
-    // const searchedProduct=await fetchSearch(query)
-    // const searchParams = useSearchParams();
-    // const sort = searchParams.get("sort") ?? "price-asc"
 
-    // const filteredproducts = sorted.filter(p => p.title.toLowerCase().includes(query.toLowerCase()))
+    const { data: CategoryList } = useFetchCategories()
+    // const uniquecatg = [...new Set(data.map(p => p.category))]
 
+    //set debounce search 
+    const [search, setSearch] = useState('')
+    const dbouncequery = useDebounce(search, 500)
     useEffect(() => {
-        if (!query) {
+        if (!dbouncequery) return
+        handelSearch(dbouncequery)
+    }, [dbouncequery, handelSearch])
 
-            // setPeroducts(fetchSort(Apiproduct, sort))
-            // only access useeffect when data is not avaliable gotcha..
-            return
-        }
-        fetchSearch(query).then(setSearchdata)
-        // setPeroducts(fetchSort(data, sort))
+    //  Intersection Observer 
+    // const observer = useRef<IntersectionObserver | null>(null)
+    // const lastProductRef = useCallback((node: HTMLDivElement | null) => {
+    //     if (isFetchingNextPage) return // wait after single fetch
+    //     if (observer.current) observer.current.disconnect() // if new prduct appears disconnect the old one
 
-    }, [fetchSearch, query])
+    //     observer.current = new IntersectionObserver(entries => {
+    //         if (entries[0].isIntersecting && hasNextPage)
+    //             fetchNextPage()
+    //     })
 
+    //     if (node) observer.current.observe(node)
+    // }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
-    const finalProduct = useMemo(() => {
-        const base = query ? searchdata : Apiproduct
-        return fetchSort(base, sort)
-    }, [query, searchdata, Apiproduct, fetchSort, sort])
-
-    const router = useRouter()
-    function handleSort(e: React.ChangeEvent<HTMLSelectElement>) {
-        router.push(`/products?page=${page}&sort=${e.target.value}`)
-    }
 
 
     return (
         <div >
-            <div className="flex  flex-col lg:flex-row  my-5">
-                <select
-                    title='sorting'
-                    className='bg-gray-900/20 rounded-full shadow px-10 py-3 m-3 '
-                    onChange={handleSort}
-                    value={sort}
-                >
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="name-asc">Name: A–Z</option>
-                </select>
-                <div className='flex gap-3 items-center m-auto h-fit px-5 py-2 ms-10 border rounded-full'>
-                    <SearchIcon className='w-5'/>
+            {/* filter 🧠 */}
+            <div className="flex  flex-col lg:flex-row  my-5 w-full justify-around">
+
+                <div className="flex">
+                    <div className='appearance-none border-2  rounded-2xl w-fit shadow  m-3 '>
+                        <select
+                            title='Sorting'
+                            className='appearance-none   rounded-full w-fit shadow px-10 py-3 m-3 '
+                            onChange={(e) => handleSort(e.target.value as Sortoption)}>
+                            {/* <option disabled >Filter Products</option> */}
+
+
+                            <option value="title">Filter By Name</option>
+                            <option value="price">Filter By Price</option>
+                        </select>
+                        <label htmlFor="asc">
+                            <input
+                                type="radio"
+                                name="order"
+                                id="asc"
+                                value="asc"
+                                checked={order === "asc"}
+                                onChange={(e) => handleOrder(e.target.value as Orderoption)}
+                            />
+                        </label>
+                        <label htmlFor="desc">
+                            <input
+                                type="radio"
+                                name="order"
+                                id="desc"
+                                value="desc"
+                                checked={order === "desc"}
+                                onChange={(e) => handleOrder(e.target.value as Orderoption)}
+                            />
+                        </label>
+                    </div>
+                    <select
+                        title='Category'
+                        className='appearance-none border-2  rounded-full w-fit shadow px-4 py-3  m-3  '
+                        onChange={(e) => handelCategory(e.target.value)}>
+                        <option value="">All</option>
+                        {CategoryList?.map((prod: catapi, i: number) => (
+                            <option key={i} value={prod.slug}>{prod.name}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='flex gap-3 items-center appearance-none border-2  rounded-full w-fit shadow px-5 py-3 m-3 '>
+                    <SearchIcon className='w-5' />
                     <input
                         type='search'
-                        onChange={(e) => setQuery(e.currentTarget.value)}
+                        onChange={(e) => setSearch(e.target.value)}
                         name="search"
-                        value={query}
+                        // value={query}
                         placeholder="Search products... "
                         className='outline-0'
                     />
                 </div>
+            </div >
+
+
+            {/* product */}
+
+            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
+                {Apiproduct?.map((product)=>{
+                    return(
+                        <ProductCard key={product.id} product={product}/>
+                    )
+                })}
             </div>
+            {/* <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
+                {allproduct.map((product, index) => {
+                    if (index === allproduct.length - 1) {
+                        return (
+                            <div ref={lastProductRef} key={product.id}>
+                                <ProductCard product={product} />
+                            </div>
+                        )
+                    }
 
-            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  '>
-                {finalProduct.map((product) => (
-                    
-                        <ProductCard product={product} key={product.id} />
-                    
-                ))}
+                    return <ProductCard key={product.id} product={product} />
+                })}
 
+            </div >
 
+            <div></div>
 
+            {hasNextPage && <button onClick={() => fetchNextPage()}>
+                {isFetchingNextPage ? "loding..." : "loadmore"}
+            </button>} */}
 
-            </div>
+            {/* pagination */}
+            < div className='flex justify-center gap-2 items-center m-3 mt-6' >
+                {page !== 1 && (<Link className={`${styles.page}`} href={`/products?page=1&sortBy=${sortBy}&order=${order}`}>start</Link>)
+                }
+                {page > 1 && (<Link className={`${styles.page}`} href={`/products?page=${page - 1}&sortBy=${sortBy}&order=${order}`}>Prev</Link>)}
 
-            {!query && <div className='flex justify-center gap-2 items-center m-3 mt-6'>
-                <Link className={`${styles.page}`} href={`/products?page=1&sort=${sort}`}>start</Link>
-                {page > 1 && (<Link className={`${styles.page}`} href={`/products?page=${page - 1}&sort=${sort}`}>Prev</Link>)}
+               
 
-                {/* <span>|</span>
-                <Link className={page === 1 ? `${styles.page} ${styles.active}` : `${styles.page}`} href={`/products?page=1&sort=${sort}`}>1</Link>
-                <span>|</span>
-                <Link className={page === 2 ? `${styles.page} ${styles.active}` : `${styles.page}`} href={`/products?page=2&sort=${sort}`}>2</Link>
-                <span>|</span>
-                <Link className={page === 3 ? `${styles.page} ${styles.active}` : `${styles.page}`} href={`/products?page=3&sort=${sort}`}>3</Link>
-                <span>|</span> */}
-
-                {arrayPages.map((pageno, i) => (
-                    <Link key={i} className={page === pageno ? `${styles.page} ${styles.active}` : `${styles.page}`} href={`/products?page=${pageno}&sort=${sort}`}>{pageno}</Link>
-                ))}
-                <Link className={`${styles.page}`} href={`/products?page=${page + 1}&sort=${sort}`}>Next</Link>
-                <Link className={`${styles.page}`} href={`/products?page=${totalPages}&sort=${sort}`}>End</Link>
-            </div>}
-        </div>
+                {
+                    arrayPages.map((pageno, i) => (
+                        <Link key={i} className={page === pageno ? `${styles.page} ${styles.active}` : `${styles.page}`} href={`/products?page=${pageno}&sortBy=${sortBy}`}>{pageno}</Link>
+                    ))
+                }
+                {page < totalPages && <Link className={`${styles.page}`} href={`/products?page=${page + 1}&sortBy=${sortBy}&order=${order}`}>Next</Link>}
+                {page !== totalPages && <Link className={`${styles.page}`} href={`/products?page=${totalPages}&sortBy=${sortBy}&order=${order}`}>End</Link>}
+            </div > 
+        </div >
     )
 }
