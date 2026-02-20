@@ -1,45 +1,72 @@
+"use client"
 
-// it will serach the paramas and import here the value as a string but the search paramas will be an object 
-
-import fetchProducts from '@/lib/fetchProducts';
 import ProductList from './ProductList';
-// import sortProduct from '@/lib/sortProduct';
+import { Orderoption, Sortoption } from '@/types/sortType';
+import { useFetchProducts } from '@/hooks/useFetchProducts';
+import { useSearchParams } from 'next/navigation';// search paramas will be an object
 import { products } from '@/data/products';
-
-import { Sortoption } from '@/types/sortType';
-type PageProps = {
-    searchParams: Promise<{
-        page?: string;
-        sort?: Sortoption
-        category?: string
-    }>
-}
+import { useEffect, useMemo } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import fetchProducts from '@/lib/fetchProducts';
 
 
-
-export default async function Page({ searchParams }: PageProps) {
-    // const {sortProduct,fetchSearch} =useFilter()
-    const { page, sort, category } = await searchParams
-    const currentpage = Number(page) || 1;
-    const Pagesort: Sortoption = sort ?? "price-asc";
-
-    // const prod = await fetchProducts(currentpage)
-    const prod= products
-
+export default function Page() {
     
-    // const sortedprod = sortProduct(prod.products, Pagesort)
+    const searchParams = useSearchParams()
 
-    const totalpages = Math.ceil(prod.total / 10)
-    console.log(totalpages, prod.total, prod.limit)
+    const page = Number(searchParams.get("page")) || 1;
+    const category = searchParams.get("category") ?? undefined;
+    const sortBy = (searchParams.get("sortBy") ?? "title") as Sortoption;
+    const order = (searchParams.get("order") ?? "asc") as Orderoption
+    const q = searchParams.get("q") ?? "";
 
-    const range = 2
-    const start = Math.max(1, currentpage - range) //5=> start=3 
-    const end = Math.min(totalpages, currentpage + range) //5=> end=7
-    const pagesarr = Array.from({ length: end - start + 1 }, (_, i) => i + start)
+    const { data, isLoading, isError, error } = useFetchProducts({ page, sortBy, order, category, q })
+    const uiData = products.products
+
+   
+
+    // array to show in pagination
+    const totalpages = Math.ceil((data?.total ?? 0) / 10)
+    console.log(totalpages, data?.total, data?.limit)
+    const pagesarr = useMemo(() => {
+        const range = 2
+        const start = Math.max(1, page - range) //5=> start=3 
+        const end = Math.min(totalpages, page + range) //5=> end=7
+        return Array.from({ length: end - start + 1 }, (_, i) => i + start)
+    }, [page, totalpages])
+
+
+    //  prefetch the data of next list
+    const queryClient = useQueryClient()
+
+    useEffect(() => {
+        if (!data) return
+        const nextPage = page + 1
+
+        if (nextPage <= totalpages) {
+            queryClient.prefetchQuery({
+                queryKey: ['products', nextPage, sortBy, order, category, q],
+                queryFn: fetchProducts
+            })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page, sortBy, order, category, totalpages])
+
     return (
         <section className=' px-4 lg:px-10 mx-auto mt-30'>
             <h1 className='text-5xl  font-bold text-orange-700 py-4  '>Shop All</h1>
-            <ProductList page={currentpage} sort={Pagesort} Apiproduct={prod.products} totalPages={Number(prod.total)} arrayPages={pagesarr} category={category} />
+            {isLoading && <p>Loading...</p>}
+            {isError && <p>{error.message}</p>}
+            <ProductList
+                page={page}
+                q={q}
+                category={category}
+                sortBy={sortBy}
+                order={order}
+                Apiproduct={data?.products ?? uiData}
+                totalPages={totalpages}
+                arrayPages={pagesarr}
+            />
         </section>
     );
 }

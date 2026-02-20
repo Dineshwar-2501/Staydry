@@ -1,11 +1,16 @@
+import { QueryFunctionContext } from '@tanstack/react-query';
 import { Product } from "@/types/productType"
 
-export default async function fetchProduct({ id }: { id: string }): Promise<Product | null> {
-    try{const url = `https://dummyjson.com/products/${id}`
-    const response = await fetch(url)
-    const data: Product = await response.json()
-    return data}
-    catch(e){
+import { api } from "./axois"
+
+export default async function fetchProduct({ queryKey }: QueryFunctionContext) {
+    try {
+        const [,id]=queryKey as [string,string]
+        const res = await api.get(`/products/${id}`)
+
+        return res.data
+    }
+    catch (e) {
         console.log(e)
         return null
     }
