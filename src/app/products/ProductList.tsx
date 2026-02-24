@@ -20,44 +20,63 @@ type productProp = {
     category?: string,
     sortBy: Sortoption,
     order: Orderoption,
-    Apiproduct: Product[]
-    totalPages: number,
-    arrayPages: number[],
+    // Apiproduct: Product[]
+    // totalPages: number,
+    // arrayPages: number[],
 
 }
 
-export default function ProductList({ page, sortBy, order, category, q, Apiproduct, totalPages, arrayPages }: productProp) {
+export default function ProductList({ page, sortBy, order, q, category }: productProp) {
 
     const { handelSearch, handleSort, handelCategory, handleOrder } = useFilter()
 
-    // const { data: scrollData, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteFetch({ sortBy, order, q, category })
-    // const allproduct:Product[] = scrollData?.pages.flatMap(p => p.products) ??[]
+    const { data: scrollData, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteFetch({ sortBy, order, q, category })
+    const allproduct: Product[] = scrollData?.pages.flatMap(p => p.products) ?? []
 
 
     const { data: CategoryList } = useFetchCategories()
     // const uniquecatg = [...new Set(data.map(p => p.category))]
 
-    //set debounce search 
+
     const [search, setSearch] = useState('')
+    const [cate, setCate] = useState('')
+
+
+    const handleSearchChange = (value: string) => {
+
+        setCate('')
+        setSearch(value)
+        // handelSearch(value)
+        
+    }
+    const handleCategoryChange = (value: string) => {
+        
+        setCate(value)
+        setSearch('')
+        handelCategory(value)
+
+    }
+
+    //set debounce search 
     const dbouncequery = useDebounce(search, 500)
     useEffect(() => {
         if (!dbouncequery) return
-        handelSearch(dbouncequery)
+        handelSearch(dbouncequery || "")
     }, [dbouncequery, handelSearch])
 
     //  Intersection Observer 
-    // const observer = useRef<IntersectionObserver | null>(null)
-    // const lastProductRef = useCallback((node: HTMLDivElement | null) => {
-    //     if (isFetchingNextPage) return // wait after single fetch
-    //     if (observer.current) observer.current.disconnect() // if new prduct appears disconnect the old one
+    const observer = useRef<IntersectionObserver | null>(null)
+    const lastProductRef = useCallback((node: HTMLDivElement | null) => {
+        if (isFetchingNextPage) return // wait after single fetch
+        if (observer.current) observer.current.disconnect() // if new prduct appears disconnect the old one
 
-    //     observer.current = new IntersectionObserver(entries => {
-    //         if (entries[0].isIntersecting && hasNextPage)
-    //             fetchNextPage()
-    //     })
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasNextPage)
+                fetchNextPage()
+        })
 
-    //     if (node) observer.current.observe(node)
-    // }, [fetchNextPage, hasNextPage, isFetchingNextPage])
+        if (node) observer.current.observe(node)
+    }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
 
 
@@ -101,9 +120,10 @@ export default function ProductList({ page, sortBy, order, category, q, Apiprodu
                     </div>
                     <select
                         title='Category'
+                        value={cate}
                         className='appearance-none border-2  rounded-full w-fit shadow px-4 py-3  m-3  '
-                        onChange={(e) => handelCategory(e.target.value)}>
-                        <option value="">All</option>
+                        onChange={(e) => handleCategoryChange(e.target.value)}>
+                        <option defaultChecked value="">All</option>
                         {CategoryList?.map((prod: catapi, i: number) => (
                             <option key={i} value={prod.slug}>{prod.name}</option>
                         ))}
@@ -113,7 +133,8 @@ export default function ProductList({ page, sortBy, order, category, q, Apiprodu
                     <SearchIcon className='w-5' />
                     <input
                         type='search'
-                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                        onChange={(e) => handleSearchChange(e.target.value)}
                         name="search"
                         // value={query}
                         placeholder="Search products... "
@@ -125,16 +146,16 @@ export default function ProductList({ page, sortBy, order, category, q, Apiprodu
 
             {/* product */}
 
-            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
-                {Apiproduct?.map((product)=>{
-                    return(
-                        <ProductCard key={product.id} product={product}/>
+            {/* <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
+                {Apiproduct?.map((product) => {
+                    return (
+                        <ProductCard key={product.id} product={product} />
                     )
                 })}
-            </div>
-            {/* <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
+            </div> */}
+            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
                 {allproduct.map((product, index) => {
-                    if (index === allproduct.length - 1) {
+                    if (index === allproduct.length - 10) {
                         return (
                             <div ref={lastProductRef} key={product.id}>
                                 <ProductCard product={product} />
@@ -147,14 +168,14 @@ export default function ProductList({ page, sortBy, order, category, q, Apiprodu
 
             </div >
 
-            <div></div>
 
-            {hasNextPage && <button onClick={() => fetchNextPage()}>
+
+            {/* {hasNextPage && <button onClick={() => fetchNextPage()}>
                 {isFetchingNextPage ? "loding..." : "loadmore"}
             </button>} */}
 
             {/* pagination */}
-            < div className='flex justify-center gap-2 items-center m-3 mt-6' >
+            {/* < div className='flex justify-center gap-2 items-center m-3 mt-6' >
                 {page !== 1 && (<Link className={`${styles.page}`} href={`/products?page=1&sortBy=${sortBy}&order=${order}`}>start</Link>)
                 }
                 {page > 1 && (<Link className={`${styles.page}`} href={`/products?page=${page - 1}&sortBy=${sortBy}&order=${order}`}>Prev</Link>)}
@@ -168,7 +189,7 @@ export default function ProductList({ page, sortBy, order, category, q, Apiprodu
                 }
                 {page < totalPages && <Link className={`${styles.page}`} href={`/products?page=${page + 1}&sortBy=${sortBy}&order=${order}`}>Next</Link>}
                 {page !== totalPages && <Link className={`${styles.page}`} href={`/products?page=${totalPages}&sortBy=${sortBy}&order=${order}`}>End</Link>}
-            </div > 
+            </div >  */}
         </div >
     )
 }
