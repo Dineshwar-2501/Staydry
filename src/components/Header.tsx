@@ -50,7 +50,7 @@ export default function Header() {
                         <Link className={style.nav} href="">Bedding&Home</Link>
                         <Link className={style.nav} href="">Mobility</Link>
                         <Link className={style.nav} href="">Toilet Training</Link>
-                        <Link className={style.nav} href="">Bundles</Link>
+                        <Link className={style.nav} href="/users">Users</Link>
                         <Link className={style.nav} href="/contacts">Contacts</Link>
 
                     </div>
@@ -97,7 +97,7 @@ export default function Header() {
                         <Link className={style.nav} href="">Bedding&Home</Link>
                         <Link className={style.nav} href="">Mobility</Link>
                         <Link className={style.nav} href="">Toilet Training</Link>
-                        <Link className={style.nav} href="">Bundles</Link>
+                        <Link className={style.nav} href="/users">Users</Link>
                         <Link className={style.nav} href="/contacts">Contacts</Link>
 
 

@@ -1,26 +1,35 @@
 "use client"
-import Image from "next/image";
-// import line from "@/public/Icons/line.png"
-import callus, { obiDetail } from '@/lib/userdetails'
+
+
+import {   useUserData } from '@/lib/postuserdetails'
 import Button from "@/utilities/Button";
 import styles from './page.module.scss'
-import { useState } from "react";
-import { CallIcon, EmailIcon, LiveChatIcon } from "@/svgComponents/Icon";
-// import { div } from "framer-motion/m";
+import { useEffect, useState } from "react";
+import { CallIcon, CloseIcon, EmailIcon, LiveChatIcon } from "@/svgComponents/Icon";
+import { ObiDetail} from '@/types/obiDetails';
+
 
 
 
 export default function Page() {
     const [open, setOpen] = useState(false)
-    const [data, setData] = useState<obiDetail>()
+    const [data, setData] = useState<ObiDetail>()
+    const { mutateAsync } = useUserData()
     async function handelsubmit(formdata: FormData) {
-        const data = await callus(formdata)
+        const data = await mutateAsync(formdata)
+
         console.log(data)
 
         setData(data)
         setOpen(true)
-        // return <><dialog>hello</dialog></>
+
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setOpen(false)
+        }, 4000);
+    }, [open])
 
     return (
         <section className="  mx-auto px-4 md:px-10 mt-35">
@@ -47,7 +56,7 @@ export default function Page() {
                             <p>Mon-Fri <br /> 9am-5pm AEST</p>
                         </div>
                         <div>
-                            <CallIcon className="h-20 w-10"/>
+                            <CallIcon className="h-20 w-10" />
                             <h1 className={styles.title}>Call Us</h1>
                             <p>1800 684 878 <br /> 9am-5pm AEST</p>
                         </div>
@@ -57,7 +66,7 @@ export default function Page() {
                             <p>Send an Email</p>
                         </div>
                     </div>
-                    <div  className="col-span-2 ">
+                    <div className="col-span-2 ">
                         <form action={handelsubmit} className="flex flex-col gap-10  w-full">
 
                             <div className="flex flex-col  justify-start">
@@ -93,15 +102,15 @@ export default function Page() {
 
 
                         {open && data &&
-                            <div className="fixed  inset-0 bg-blue-500/10 backdrop-blur-xl drop-shadow-2xl p-3  rounded-2xl">
+                            <div className="fixed  inset-0 drop-shadow-2xl p-3  rounded-2xl">
                                 <div className=" flex flex-col mx-auto w-fit justify-center h-screen  ">
-                                    <div className="shadow-xl bg-blue-600/10 p-5 rounded-2xl">
+                                    <div className="shadow-xl bg-white p-15 rounded-2xl relative" >
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Name: {data.name}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Phone number: {data.phone}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Email: {data.email}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Date: {data.date}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Comment: {data.comment}</p>
-                                        <Button onClick={() => setOpen(false)}>Close</Button>
+                                        <button title='closebtn' className='absolute top-4 right-4 cursor-pointer' onClick={() => setOpen(false)}><CloseIcon/></button>
                                     </div>
                                 </div>
                             </div>}

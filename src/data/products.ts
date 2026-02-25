@@ -126,7 +126,7 @@ export const products: apiTypeResponse =
 ],
 "total":8,
 "skip":0,
-"limit":8
+"limit":2
 }
 
   

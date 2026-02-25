@@ -1,18 +1,12 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-
-import styles from './Footer.module.css'
-import { useState } from "react";
+import styles from './Footer.module.scss'
 import { Instagram, Facebook, LinkedIn } from "@/svgComponents/Socialmedia";
-export default function Footer() {
-    const [change, onChange] = useState(false)
+export const Footer = () => {
     return (
-        <footer className="w-full  bg-orange-500/10 mx-auto px-4 lg:px-10 lg:py-15  py-5  ">
+        <footer className="w-full  bg-orange-500/10 mx-auto px-4 lg:px-10 mt-15 lg:py-15  py-5  ">
             <div className=" grid  grid-cols-6 ">
-
-
-
                 <div className="Logo col-span-6 lg:col-span-1">
                     <Image width={40} height={40} className="aspect-square mb-5 " src='/Icons/orangeLogo.svg' alt="logo" />
                 </div>
@@ -25,11 +19,9 @@ export default function Footer() {
                     <p>© Copyright 2025 Staydry</p>
                     <p>ABN 67167519039</p>
                 </div>
-
-
                 <div className="col-span-6 row-start-2 lg:col-span-4 lg:row-span-2 lg:row-start-1 lg:col-start-3">
                     <form action="">
-                        <div className="flex justify-between items-center -z-1 relative">
+                        <div className="flex justify-between items-center  relative">
                             <label htmlFor="news" className="label text-gray-500  text-xl">Join our news letter</label>
                             <button type="submit" className={styles.button}> Submit </button>
                         </div>

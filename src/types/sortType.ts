@@ -1,1 +1,2 @@
-export type Sortoption = "price-asc" | "price-desc" | "name-asc"
+export type Sortoption = "title" | "price"
+export type Orderoption = "desc" | "asc"

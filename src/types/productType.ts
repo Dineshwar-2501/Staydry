@@ -12,4 +12,5 @@ export type Product={
     stock:number
     minimumOrderQuantity:number
     quantity:number
+    qtymutatedprice:number
 }

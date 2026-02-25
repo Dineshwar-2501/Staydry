@@ -7,6 +7,7 @@ export default function useCart() {
 
   useEffect(() => {
     const store = localStorage.getItem("cart")
+    
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCart(store ? JSON.parse(store) : [])
   }, [])
@@ -29,11 +30,12 @@ export default function useCart() {
       )
 
       saveCart(updatedCart)
+      setCart(updatedCart)
 
     }
 
     else {
-      cart.push({
+      const updatedCart=[...cart,{
         id: product.id,
         title: product.title,
         price: product.price,
@@ -45,14 +47,28 @@ export default function useCart() {
         brand: "",
         category: "",
         rating: 0,
-        stock: 0,
-        minimumOrderQuantity: 0
-      })
+        stock: product.stock,
+        minimumOrderQuantity: 0,
+        qtymutatedprice: product.qtymutatedprice
+      }]
 
 
 
-      saveCart(cart)
+      saveCart(updatedCart)
+      setCart(updatedCart)
     }
+  }
+  function incQty(id: number) {
+    const updatedCart = cart.map(item => item.id === id ? { ...item, quantity: item.quantity + 1} : item)
+    saveCart(updatedCart)
+    setCart(updatedCart)
+  }
+
+  function decQty(id: number) {
+
+    const updatedCart = cart.map(item => item.id === id ? { ...item, quantity: item.quantity - 1} : item)
+    saveCart(updatedCart)
+    setCart(updatedCart)
   }
   function clearCart() {
     localStorage.setItem("cart", "[]")
@@ -65,5 +81,5 @@ export default function useCart() {
     setCart(updateCart)
   }
 
-  return { saveCart, clearCart, cart, addtoCart, removeItem }
+  return { saveCart, clearCart, cart, addtoCart, removeItem, incQty, decQty }
 }

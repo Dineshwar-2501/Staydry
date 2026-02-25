@@ -159,15 +159,15 @@ export default function Page() {
                     <div className='col-span-3'>
                         <div className='flex items-center gap-3'>
                             <div className="flex gap-2 items-center">
-                                <WaterproofIcon/>
+                                <WaterproofIcon />
                                 <p>100% Waterproof</p>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <ComfyIcon/>
+                                <ComfyIcon />
                                 <p>Comfy Guarantee</p>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <PayIcon/>
+                                <PayIcon />
                                 <p>Pay Later</p>
                             </div>
                         </div>
@@ -177,14 +177,45 @@ export default function Page() {
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia libero asperiores provident dignissimos obcaecati, eum vitae. Optio molestias dolorum perspiciatis!
                             </p>
                         </div>
-                        <div className='flex py-10 gap-3'>
-                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/Paypal.png"} alt='' />
-                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/indis.png"} alt='' />
-                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/master.png"} alt='' />
-                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/visa.png"} alt='' />
-                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/zpay.png"} alt='' />
-                            <Image width={80} className='aspect-2/1' height={5} src={"/Images/afterpay.png"} alt='' />
-                        </div>
+                        
+
+                            <Swiper
+                                slidesPerView={5}
+                                centeredSlides={true}
+                                className='w-full flex! items-center!  justify-center!'
+                                modules={[Autoplay]}
+                                autoplay={{
+                                    delay: 0,
+                                    disableOnInteraction: false,
+                                }}
+
+                                loop={true} //infinte
+                                speed={2500}//smooth
+
+
+                            >
+                                <SwiperSlide className='m-auto flex! items-center!  justify-center!' >
+                                    <Image width={100} className='aspect-1' height={5} src={"/Images/Paypal.png"} alt='' />
+                                </SwiperSlide>
+                                <SwiperSlide className='m-auto flex! items-center!  justify-center!' >
+                                    <Image width={80} className='aspect-1' height={5} src={"/Images/indis.png"} alt='' />
+                                </SwiperSlide>
+                                <SwiperSlide className='m-auto flex! items-center!  justify-center!' >
+                                    <Image width={80} className='aspect-1' height={5} src={"/Images/master.png"} alt='' />
+                                </SwiperSlide>
+                                <SwiperSlide className='m-auto flex! items-center!  justify-center!' >
+                                    <Image width={100} className='aspect-1' height={5} src={"/Images/visa.png"} alt='' />
+                                </SwiperSlide>
+                                <SwiperSlide className='m-auto flex! items-center!  justify-center!' >
+                                    <Image width={100} className='aspect-1' height={5} src={"/Images/zpay.png"} alt='' />
+                                </SwiperSlide>
+                                <SwiperSlide className='m-auto flex! items-center!  justify-center!' >
+                                    <Image width={100} className='aspect-1' height={5} src={"/Images/afterpay.png"} alt='' />
+                                </SwiperSlide>
+
+                            </Swiper>
+                       
+
                     </div>
                     <div className='col-span-1 flex items-end flex-col'>
                         <p>Lorem ipsum dolor sit amet consectetur.</p>

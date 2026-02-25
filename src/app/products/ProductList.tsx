@@ -1,16 +1,15 @@
 "use client"
 import { Product } from '@/types/productType';
 import ProductCard from './ProductCard';
-import Link from 'next/link';
-import styles from './ProductList.module.scss'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useFilter from '@/hooks/useFilter';
 import { Orderoption, Sortoption } from '@/types/sortType';
-import { DownChevronIcon, SearchIcon } from '@/svgComponents/Icon';
+import { AscIcon, DescIcon, SearchIcon } from '@/svgComponents/Icon';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useFetchCategories } from '@/hooks/useFetchCategories';
 import { catapi } from '@/types/catgeoryType';
 import useInfiniteFetch from '@/hooks/useInfinteFetch';
+import  styles  from './ProductList.module.scss'
 
 
 
@@ -47,10 +46,10 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
         setCate('')
         setSearch(value)
         // handelSearch(value)
-        
+
     }
     const handleCategoryChange = (value: string) => {
-        
+
         setCate(value)
         setSearch('')
         handelCategory(value)
@@ -86,7 +85,7 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
             <div className="flex  flex-col lg:flex-row  my-5 w-full justify-around">
 
                 <div className="flex">
-                    <div className='appearance-none border-2  rounded-2xl w-fit shadow  m-3 '>
+                    <div className='appearance-none border-2 flex items-center rounded-2xl w-fit shadow  m-3 '>
                         <select
                             title='Sorting'
                             className='appearance-none   rounded-full w-fit shadow px-10 py-3 m-3 '
@@ -97,22 +96,27 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
                             <option value="title">Filter By Name</option>
                             <option value="price">Filter By Price</option>
                         </select>
-                        <label htmlFor="asc">
+                        <label htmlFor="asc" title="Ascending">
+                            <AscIcon className={`w-10  h-10 ${order === "asc" ? "text-blue-500" : styles.order} `} />
                             <input
                                 type="radio"
                                 name="order"
                                 id="asc"
                                 value="asc"
+
                                 checked={order === "asc"}
+                                className='hidden'
                                 onChange={(e) => handleOrder(e.target.value as Orderoption)}
                             />
                         </label>
-                        <label htmlFor="desc">
+                        <label htmlFor="desc" title='Descending'>
+                            <DescIcon className={`w-10 h-10 ${order === "desc" ? "text-blue-500" : styles.order}`} />
                             <input
                                 type="radio"
                                 name="order"
                                 id="desc"
                                 value="desc"
+                                className='hidden'
                                 checked={order === "desc"}
                                 onChange={(e) => handleOrder(e.target.value as Orderoption)}
                             />
@@ -176,7 +180,7 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
 
             {/* pagination */}
             {/* < div className='flex justify-center gap-2 items-center m-3 mt-6' >
-                {page !== 1 && (<Link className={`${styles.page}`} href={`/products?page=1&sortBy=${sortBy}&order=${order}`}>start</Link>)
+                {page == 1 && (<Link className={`${styles.page}`} href={`/products?page=1&sortBy=${sortBy}&order=${order}`}>start</Link>)
                 }
                 {page > 1 && (<Link className={`${styles.page}`} href={`/products?page=${page - 1}&sortBy=${sortBy}&order=${order}`}>Prev</Link>)}
 

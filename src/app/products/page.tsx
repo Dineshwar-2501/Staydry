@@ -11,7 +11,7 @@ import fetchProducts from '@/lib/fetchProducts';
 
 
 export default function Page() {
-    
+
     const searchParams = useSearchParams()
 
     const page = Number(searchParams.get("page")) || 1;
@@ -20,52 +20,52 @@ export default function Page() {
     const order = (searchParams.get("order") ?? "asc") as Orderoption
     const q = searchParams.get("q") ?? "";
 
-    const { data, isLoading, isError, error } = useFetchProducts({ page, sortBy, order, category, q })
-    const uiData = products.products
+    // const { data, isLoading, isError, error } = useFetchProducts({ page, sortBy, order, q, category })
+    // const uiData = products.products
 
-   
+
 
     // array to show in pagination
-    const totalpages = Math.ceil((data?.total ?? 0) / 10)
-    console.log(totalpages, data?.total, data?.limit)
-    const pagesarr = useMemo(() => {
-        const range = 2
-        const start = Math.max(1, page - range) //5=> start=3 
-        const end = Math.min(totalpages, page + range) //5=> end=7
-        return Array.from({ length: end - start + 1 }, (_, i) => i + start)
-    }, [page, totalpages])
+    // const totalpages = Math.ceil((data?.total ?? 0) / 10)
+    // console.log(totalpages, data?.total, data?.limit)
+    // const pagesarr = useMemo(() => {
+    //     const range = 2
+    //     const start = Math.max(1, page - range) //5=> start=3 
+    //     const end = Math.min(totalpages, page + range) //5=> end=7
+    //     return Array.from({ length: end - start + 1 }, (_, i) => i + start)
+    // }, [page, totalpages])
 
 
     //  prefetch the data of next list
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
 
-    useEffect(() => {
-        if (!data) return
-        const nextPage = page + 1
+    // useEffect(() => {
+    //     if (!data) return
+    //     const nextPage = page + 1
 
-        if (nextPage <= totalpages) {
-            queryClient.prefetchQuery({
-                queryKey: ['products', nextPage, sortBy, order, category, q],
-                queryFn: fetchProducts
-            })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page, sortBy, order, category, totalpages])
+    //     if (nextPage <= totalpages) {
+    //         queryClient.prefetchQuery({
+    //             queryKey: ['products', nextPage, sortBy, order, q, category],
+    //             queryFn: fetchProducts
+    //         })
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [page, sortBy, order, category, totalpages])
 
     return (
         <section className=' px-4 lg:px-10 mx-auto mt-30'>
             <h1 className='text-5xl  font-bold text-orange-700 py-4  '>Shop All</h1>
-            {isLoading && <p>Loading...</p>}
-            {isError && <p>{error.message}</p>}
+            {/* {isLoading && <p>Loading...</p>} */}
+            {/* {isError && <p>{error.message}</p>} */}
             <ProductList
                 page={page}
                 q={q}
                 category={category}
                 sortBy={sortBy}
                 order={order}
-                Apiproduct={data?.products ?? uiData}
-                totalPages={totalpages}
-                arrayPages={pagesarr}
+            // Apiproduct={data?.products ?? uiData}
+            // totalPages={totalpages}
+            // arrayPages={pagesarr}
             />
         </section>
     );

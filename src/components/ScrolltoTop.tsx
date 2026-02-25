@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "@/utilities/Button";
 
 import { useEffect, useState } from "react";
+import { ArrowUp } from "@/svgComponents/Icon";
 export default function ScrolltoTop() {
 
     function handlescroll() {
@@ -27,12 +28,12 @@ export default function ScrolltoTop() {
     return (
         <>
             {!showtop &&  <Button
-                className={`fixed bottom-0 right-0 z-1  rounded-full  `}
+                className={`fixed bottom-0 right-10 z-1 p-0! rounded-full  `}
                 onClick={() => { handlescroll() }}
                 
             >
 
-                <Image src='/Icons/arrow-up-mark.png' alt='arrow' width={30}  height={30} className="py-3 mx-1  " />
+                <ArrowUp/>
 
             </Button>}
         </>

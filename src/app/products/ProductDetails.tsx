@@ -1,32 +1,35 @@
 "use client"
 import QuantityControl from "@/components/Quantitycontrol";
 import useFetchProduct from "@/hooks/useFetchProduct";
-import LinkCompo from "@/utilities/LinkCompo";
+import { BackArrowIcon } from "@/svgComponents/Icon";
+import Button from "@/utilities/Button";
+
 import SwiperProduct from "@/utilities/SwiperProduct";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 
-export default function ProductDetails({id}:{id:string}) {
+export default function ProductDetails({ id }: { id: string }) {
 
-    const { data: product, isLoading, isFetching, isError, error } = useFetchProduct(id)
+    const { data: product, isLoading, isError, error } = useFetchProduct(id)
 
-    // if (!product) notFound();
+    const router = useRouter()
+
 
 
     return (
-        <section className='   px-10 mx-auto'>
-            <LinkCompo href='/products' className='flex w-fit gap-3'>
+        <section className='   px-10 mx-auto mt-40'>
+            <Button onClick={() => router.back()} className='flex w-fit gap-3 '>
 
-                <Image src='/Icons/arrow.png' width={20} height={20} alt="arrow" /><p>Back</p>
+                <BackArrowIcon width={20} className="py-2" /><p className="py-2" >Back</p>
 
-            </LinkCompo>
+            </Button>
             {isLoading && <p>Loading...</p>}
             {isError && <p>{error.message}</p>}
             <div className='grid grid-cols-1 lg:grid-cols-6 gap-5 mt-5 items-center'>
-                <div className='col-span-1 col-start-1 mx-5 p-10'>
-                    {product?.images?.map((image: string , index:number) => (
+                <div className='col-span-1 col-start-1 mx-5 p-10 hidden lg:block'>
+                    {product?.images?.map((image: string, index: number) => (
                         <Image
                             key={index}
                             src={image}
@@ -41,7 +44,7 @@ export default function ProductDetails({id}:{id:string}) {
                     <SwiperProduct images={product?.images} />
                 </div>
                 <div className='col-span-3 col-end-7'>
-                    <h1 className='text-2xl font-bold text-orange-500 p-3'>{product?.title}</h1>
+                    <h1 className='text-[3vw] font-bold text-orange-500 p-3'>{product?.title}</h1>
                     <hr className='p-3' />
                     <p className='text-sm p-3 text-gray-600 font-medium'>{product?.description}</p>
                     <div className="flex justify-between p-2">

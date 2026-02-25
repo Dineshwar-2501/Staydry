@@ -8,13 +8,13 @@ import { Orderoption, Sortoption } from "@/types/sortType"
 
 export default async function fetchProducts({ queryKey }: QueryFunctionContext): Promise<apiTypeResponse> {
     try {
-        const [, page, sortBy, order, category, q] = queryKey as [string, number, Sortoption, Orderoption, string, string]
+        const [, page, sortBy, order, q, category] = queryKey as [string, number, Sortoption, Orderoption, string, string]
 
         const limit = 10
         const skip = (page - 1) * limit
 
         let endpoint = '/products'
-        const params: { limit: number; skip: number; q?: string, sortBy: Sortoption, order: Orderoption } = {limit, skip, sortBy, order }
+        const params: { limit: number; skip: number; q?: string, sortBy: Sortoption, order: Orderoption } = { limit, skip, sortBy, order }
 
         if (q) {
             endpoint = '/products/search'
@@ -24,7 +24,7 @@ export default async function fetchProducts({ queryKey }: QueryFunctionContext):
             endpoint = `/products/category/${category}`
         }
 
-       
+
         // const res = await api.get(`/products?limit=${limit}&skip=${skip}`)
         // const res = await api.get('/products', {params: {limit,skip, sortBy,category,q}})
         const res = await api.get(endpoint, { params })

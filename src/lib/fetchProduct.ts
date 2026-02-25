@@ -1,6 +1,4 @@
 import { QueryFunctionContext } from '@tanstack/react-query';
-import { Product } from "@/types/productType"
-
 import { api } from "./axois"
 
 export default async function fetchProduct({ queryKey }: QueryFunctionContext) {

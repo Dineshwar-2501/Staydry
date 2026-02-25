@@ -12,36 +12,56 @@ export default function useFilter() {
     const sortBy = searchParams.get("sortBy") ?? "title"
 
     const updateParams = (updates: Record<string, string>) => {
-        const params = new URLSearchParams(searchParams.toString())
+        const params = new URLSearchParams(window.location.search) // give the current url 
         Object.entries(updates).forEach(([key, value]) => {
-            params.set(key, value)
+
+            if (!value) {
+                params.delete(key)
+            } else {
+                params.set(key, value)
+            }
+            console.log("Updates", updates)
+            console.log("keyframes", key)
+            console.log("valuse",value)
+
         })
-        router.push(`/products?${params.toString()}`)
+        // router.push(`/products?${params.toString()}`)
+        const newUrl = `/products?${params.toString()}`  // give the new url if chaged
+        const currentUrl = `/products?${searchParams.toString()}` // give the already fetch url
+
+        if (newUrl !== currentUrl) {
+            router.push(newUrl)
+        }
+
+        
+        
     }
 
     const handelSearch = (value: string) => {
 
         updateParams({
-            "page": "1",
-            "q": value
+            // "page": "1",
+            "q": value,
+            // "category": '',
         })
     }
     const handelCategory = (value: string) => {
         updateParams({
-            "page": "1",
-            "category": value
+            // "page": "1",
+            "category": value,
+            "q": ''
         })
     }
     const handleSort = (value: Sortoption) => {
         updateParams({
-            "page": "1",
+            // "page": "1",
             "sortBy": value,
             order
         })
     }
     const handleOrder = (value: Orderoption) => {
         updateParams({
-            "page": "1",
+            // "page": "1",
             "order": value,
             sortBy
         })
@@ -68,5 +88,5 @@ export default function useFilter() {
     // }
 
 
-    return { handelCategory, handelSearch, handleSort,handleOrder }
+    return { handelCategory, handelSearch, handleSort, handleOrder }
 }

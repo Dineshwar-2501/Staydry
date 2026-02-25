@@ -10,7 +10,7 @@ type prodprop = {
     images: string[]
 }
 
-export default function Page({ images }: prodprop) {
+export default function SwiperProduct({ images }: prodprop) {
     return (
         <Swiper
                     
@@ -26,7 +26,7 @@ export default function Page({ images }: prodprop) {
             
         >
             
-            {images.map((image, index) => (
+            {images?.map((image, index) => (
                 <SwiperSlide 
                 key={index}
 

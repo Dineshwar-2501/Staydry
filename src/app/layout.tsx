@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
-import {Inter } from "next/font/google";
+
+import { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Footer } from "@/components/Footer";
 import ScrolltoTop from "@/components/ScrolltoTop";
 import { sohne } from './font'
+import Provider from "@/components/Provider";
 
 const Int = Inter({
-  weight:['400','500','600'],
+  weight: ['400', '500', '600'],
   variable: "--font-Inter",
   subsets: ["latin"],
 });
@@ -26,13 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={Int.variable}>
       <body className={` antialiased  `} >
-        <ScrolltoTop />
-        <Header />
-        <main >
-          {children}
-        </main>
+        <Provider >
+          <ScrolltoTop />
+          <Header />
+          <main >
+            {children}
+          </main>
+          <Footer />
 
-        <Footer />
+        </Provider>
       </body>
     </html>
   );
