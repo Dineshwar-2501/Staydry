@@ -29,7 +29,7 @@ export default function ProductCard({ product }: productprop) {
                     // onMouseEnter={handlePrefetch}
                     >
                     <div className={`${styles.card__image}`} >
-                        <Image src={`${product?.thumbnail}`} width={400} height={400} alt={product.title} className='object-cover w-auto h-auto' />
+                        <Image src={`${product?.thumbnail}`} width={400} height={400} alt={product.title} className='object-cover  h-auto ' />
                     </div>
                 </Link>
                 <div className=' bg-[#d4410b]'>

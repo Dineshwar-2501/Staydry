@@ -19,7 +19,7 @@ export default function Page() {
         <>
 
 
-            <div className='mt-30'>
+            <div className=''>
 
                 <Swiper
                     slidesPerView={1}

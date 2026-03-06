@@ -1,18 +1,36 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import style from './Header.module.scss'
-import { CallIcon, MenuIcon, SearchIcon } from "@/svgComponents/Icon";
+import { CallIcon, CartIcon, MenuIcon, SearchIcon } from "@/svgComponents/Icon";
 import Logo from "@/svgComponents/Logo";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 export default function Header() {
     const [open, setOpen] = useState(false)
-    const pathname =usePathname();
+    const [fixed, setFixed] = useState(false)
+    const pathname = usePathname();
+    const reduxCart = useSelector((state: RootState) => state.cart)
+
+    useEffect(() => {
+        function handleHeader() {
+            requestAnimationFrame(()=>{
+            if (window.scrollY > 0) {
+                setFixed(true)
+            } else {
+                setFixed(false)
+            }
+        }
+    )};
+        window.addEventListener("scroll", handleHeader);
+        return () => window.removeEventListener("scroll", handleHeader)
+    }, []);
     return (
-        <header className=" fixed top-0  z-10 w-full bg-amber-50 " >
-            {/* logo */}
+        <header className={`  z-100 w-full bg-amber-50 ${style.header}`}>
+            {/* ${fixed? 'fixed':''}  */}
 
 
             <div className={`${style.tabs} mx-auto px-4 xl:px-10`}>
@@ -22,7 +40,7 @@ export default function Header() {
 
                     </Link>
                     <Link href='/cart' >
-                        <Image src='/Icons/Staydry-Kids.svg' width={180} height={20} alt="StayDry-Logo" className={`object-cover ${ pathname==='/cart' ? style["tabs__logo--active"] : ""}  py-2  px-3`} />
+                        <Image src='/Icons/Staydry-Kids.svg' width={180} height={20} alt="StayDry-Logo" className={`object-cover ${pathname === '/cart' ? style["tabs__logo--active"] : ""}  py-2  px-3`} />
                     </Link>
                 </div>
                 <button
@@ -49,7 +67,7 @@ export default function Header() {
                         <Link className={style.nav} href="">Underwear</Link>
                         <Link className={style.nav} href="">Bedding&Home</Link>
                         <Link className={style.nav} href="">Mobility</Link>
-                        <Link className={style.nav} href="">Toilet Training</Link>
+                        <Link className={style.nav} href="/about">About</Link>
                         <Link className={style.nav} href="/users">Users</Link>
                         <Link className={style.nav} href="/contacts">Contacts</Link>
 
@@ -69,7 +87,7 @@ export default function Header() {
                         <Link href={'/products'} className=" ">
                             <SearchIcon className="text-black w-8 mx-2 lg:block hidden" />
                         </Link>
-                        <Link className=" me-3 text-lg" href="/cart">Cart</Link>
+                        <Link className=" me-3 text-lg flex items-center content-center relative" href="/cart">  <CartIcon className="w-9" /> <span className={` -right-2  -top-2 w-6 h-6 absolute rounded-full bg-amber-700  text-white text-xl  font-bold ${reduxCart.items.length === 0 ? "hidden" : "inline-block"} `}>{reduxCart.items.length}</span> </Link>
 
 
                         <button
@@ -95,8 +113,8 @@ export default function Header() {
                         <Link className={style.nav} href="/products">Shop All</Link>
                         <Link className={style.nav} href="">Underwear</Link>
                         <Link className={style.nav} href="">Bedding&Home</Link>
-                        <Link className={style.nav} href="">Mobility</Link>
-                        <Link className={style.nav} href="">Toilet Training</Link>
+                        <Link className={style.nav} href="">Mobility</Link> 
+                        <Link className={style.nav} href="/about">About</Link>
                         <Link className={style.nav} href="/users">Users</Link>
                         <Link className={style.nav} href="/contacts">Contacts</Link>
 

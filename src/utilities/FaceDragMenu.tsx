@@ -7,10 +7,10 @@ type DragMenuProps = {
 }
 export default function FaceDragMenu({ screenRef }: DragMenuProps) {
 
-  const[drag,setDrag] =useState(false)
+  const [drag, setDrag] = useState(false)
 
   const mouse = useRef({ x: 0, y: 0 })
-  
+
 
   const eye1Ref = useRef<HTMLDivElement>(null)
   const eye2Ref = useRef<HTMLDivElement>(null)
@@ -60,10 +60,16 @@ export default function FaceDragMenu({ screenRef }: DragMenuProps) {
     <motion.div
       drag
       dragConstraints={screenRef}
-      onDragEnd={()=>setDrag(false)}
-      onDragStart={()=>setDrag(true)}
-      
-      
+      onDragEnd={() => setDrag(false)}
+      onDragStart={() => setDrag(true)}
+      // animate={!drag ? { y: [0, -120, 0] } : {}}
+      // transition={{
+      //   type:"spring",
+      //   stiffness:300,
+      //   damping:10,
+        
+      // }}
+
       dragElastic={0.1}
       dragMomentum={true}
       className="absolute bg-gray-600 z-10 px-4 py-3 rounded-full cursor-grab active:cursor-grabbing"
@@ -93,7 +99,7 @@ export default function FaceDragMenu({ screenRef }: DragMenuProps) {
           <path
             d="M9 16C9.85 16.63 10.88 17 12 17C13.11 17 14.15 16.63 15 16"
             stroke="black"
-            strokeWidth={`${drag? '10' : '2'}`}
+            strokeWidth={`${drag ? '10' : '2'}`}
             strokeLinecap="round"
           />
         </svg>

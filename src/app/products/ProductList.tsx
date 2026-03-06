@@ -4,12 +4,12 @@ import ProductCard from './ProductCard';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useFilter from '@/hooks/useFilter';
 import { Orderoption, Sortoption } from '@/types/sortType';
-import { AscIcon, DescIcon, SearchIcon } from '@/svgComponents/Icon';
+import { AscIcon, DescIcon, DownChevronIcon, RightChevronIcon, SearchIcon } from '@/svgComponents/Icon';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useFetchCategories } from '@/hooks/useFetchCategories';
 import { catapi } from '@/types/catgeoryType';
 import useInfiniteFetch from '@/hooks/useInfinteFetch';
-import  styles  from './ProductList.module.scss'
+import styles from './ProductList.module.scss'
 
 
 
@@ -41,6 +41,7 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
     const [cate, setCate] = useState('')
 
 
+
     const handleSearchChange = (value: string) => {
 
         setCate('')
@@ -55,6 +56,7 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
         handelCategory(value)
 
     }
+
 
     //set debounce search 
     const dbouncequery = useDebounce(search, 500)
@@ -79,61 +81,75 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
 
 
 
+
     return (
         <div >
             {/* filter 🧠 */}
-            <div className="flex  flex-col lg:flex-row  my-5 w-full justify-around">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-2 xl:grid-cols-3 grid-rows-2 my-5 w-full ">
 
-                <div className="flex">
-                    <div className='appearance-none border-2 flex items-center rounded-2xl w-fit shadow  m-3 '>
+
+                <div className=' filter border-2 flex items-center rounded-2xl w-fit p-1 shadow-xl   row-start-2 xl:row-start-1'>
+
+
+                    <div className="relative flex">
                         <select
                             title='Sorting'
-                            className='appearance-none   rounded-full w-fit shadow px-10 py-3 m-3 '
+                            id='Sortfilter'
+                            className='appearance-none bg-transparent outline-0 rounded-full w-fit  px-15 py-5 m-2 flex'
                             onChange={(e) => handleSort(e.target.value as Sortoption)}>
                             {/* <option disabled >Filter Products</option> */}
-
-
                             <option value="title">Filter By Name</option>
                             <option value="price">Filter By Price</option>
                         </select>
-                        <label htmlFor="asc" title="Ascending">
-                            <AscIcon className={`w-10  h-10 ${order === "asc" ? "text-blue-500" : styles.order} `} />
-                            <input
-                                type="radio"
-                                name="order"
-                                id="asc"
-                                value="asc"
-
-                                checked={order === "asc"}
-                                className='hidden'
-                                onChange={(e) => handleOrder(e.target.value as Orderoption)}
-                            />
-                        </label>
-                        <label htmlFor="desc" title='Descending'>
-                            <DescIcon className={`w-10 h-10 ${order === "desc" ? "text-blue-500" : styles.order}`} />
-                            <input
-                                type="radio"
-                                name="order"
-                                id="desc"
-                                value="desc"
-                                className='hidden'
-                                checked={order === "desc"}
-                                onChange={(e) => handleOrder(e.target.value as Orderoption)}
-                            />
-                        </label>
+                        <DownChevronIcon className={`  w-10 absolute -z-1 right-5 top-[25%]`} />
                     </div>
+
+
+                    <label htmlFor="asc" title="Ascending">
+                        <AscIcon className={`w-10  h-10 ${order === "asc" ? "text-blue-500" : styles.order} `} />
+                        <input
+                            type="radio"
+                            name="order"
+                            id="asc"
+                            value="asc"
+
+                            checked={order === "asc"}
+                            className='hidden'
+                            onChange={(e) => handleOrder(e.target.value as Orderoption)}
+                        />
+                    </label>
+                    <label htmlFor="desc" title='Descending'>
+                        <DescIcon className={`w-10 h-10 ${order === "desc" ? "text-blue-500" : styles.order}`} />
+                        <input
+                            type="radio"
+                            name="order"
+                            id="desc"
+                            value="desc"
+                            className='hidden'
+                            checked={order === "desc"}
+                            onChange={(e) => handleOrder(e.target.value as Orderoption)}
+                        />
+                    </label>
+                </div>
+
+                <div className=' category  row-start-3 md:row-start-2 xl:row-start-1 relative flex  w-fit '>
                     <select
                         title='Category'
                         value={cate}
-                        className='appearance-none border-2  rounded-full w-fit shadow px-4 py-3  m-3  '
+                        id='Catfilter'
+                        className='appearance-none  bg-transparent outline-0 border-2 rounded-full w-fit shadow-xl px-10 py-3 m-3 flex'
                         onChange={(e) => handleCategoryChange(e.target.value)}>
                         <option defaultChecked value="">All</option>
                         {CategoryList?.map((prod: catapi, i: number) => (
                             <option key={i} value={prod.slug}>{prod.name}</option>
                         ))}
                     </select>
+
+                    <DownChevronIcon className={`  w-10 absolute right-10 -z-1 top-[30%]`} />
                 </div>
-                <div className='flex gap-3 items-center appearance-none border-2  rounded-full w-fit shadow px-5 py-3 m-3 '>
+
+
+                <div className=' xl:col-start-2  row-start-1 col-start-1 col-span-2 search flex gap-3 items-center appearance-none border-2  rounded-full w-full shadow px-5 py-3 m-3 '>
                     <SearchIcon className='w-5' />
                     <input
                         type='search'
@@ -157,7 +173,7 @@ export default function ProductList({ page, sortBy, order, q, category }: produc
                     )
                 })}
             </div> */}
-            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6  pb-20  ' >
+            <div className='grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6    ' >
                 {allproduct.map((product, index) => {
                     if (index === allproduct.length - 10) {
                         return (

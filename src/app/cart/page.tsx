@@ -39,7 +39,7 @@ export default function Page() {
     }, [dispatch])
 
     if (cart.length === 0) {
-        return <Image src='/Images/emptycart.webp' width={500} height={500} className=" object-contain mt-40 mx-auto items-center" alt='cart is Empty' />
+        return <Image src='/Images/emptycart.webp' width={500} height={500} className=" object-contain  mx-auto items-center" alt='cart is Empty' />
     }
     return (<div className="mt-40">
         <Button onClick={() => router.back()} className='flex w-fit gap-3'>

@@ -28,7 +28,7 @@ export default function Page() {
   // const text6Y = useTransform(scrolly1, [0.7, 0.8, 0.9], [50, 0,-50])
   return (
     <>
-      <div ref={screenRef} className="h-[600vh] bg-linear-to-b from-lime-400 via-purple-900 to-blue-100 scroll-auto" >
+      <div ref={screenRef} className="h-[600vh] bg-neutral-700 scroll-auto" >
         <FaceDragMenu screenRef={screenRef} />
         <div className=" sticky top-0  grid grid-cols-1 lg:grid-cols-2 grid-rows-6 gap-5 ">
           <motion.div style={{ y: text1Y, opacity: text1Opacity }} className="text-white font-bold  col-start-1 row-start-1 ">

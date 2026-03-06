@@ -53,7 +53,7 @@ export default function Page() {
     // }, [page, sortBy, order, category, totalpages])
 
     return (
-        <section className=' px-4 lg:px-10 mx-auto mt-30'>
+        <section className=' px-4 lg:px-10 mx-auto '>
             <h1 className='text-5xl  font-bold text-orange-700 py-4  '>Shop All</h1>
             {/* {isLoading && <p>Loading...</p>} */}
             {/* {isError && <p>{error.message}</p>} */}

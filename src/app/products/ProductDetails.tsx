@@ -19,7 +19,7 @@ export default function ProductDetails({ id }: { id: string }) {
 
 
     return (
-        <section className='   px-10 mx-auto mt-40'>
+        <section className='   px-10 mx-auto'>
             <Button onClick={() => router.back()} className='flex w-fit gap-3 '>
 
                 <BackArrowIcon width={20} className="py-2" /><p className="py-2" >Back</p>
@@ -28,7 +28,7 @@ export default function ProductDetails({ id }: { id: string }) {
             {isLoading && <p>Loading...</p>}
             {isError && <p>{error.message}</p>}
             <div className='grid grid-cols-1 lg:grid-cols-6 gap-5 mt-5 items-center'>
-                <div className='col-span-1 col-start-1 mx-5 p-10 hidden lg:block'>
+                {/* <div className='col-span-1 col-start-1 row-start-1 mx-5 p-10 hidden lg:block'>
                     {product?.images?.map((image: string, index: number) => (
                         <Image
                             key={index}
@@ -39,11 +39,11 @@ export default function ProductDetails({ id }: { id: string }) {
                             className='border-black border-2 p-2 m-2 '
                         />
                     ))}
-                </div>
-                <div className='col-span-2 '>
+                </div> */}
+                <div className='lg:col-span-3 row-start-1'>
                     <SwiperProduct images={product?.images} />
                 </div>
-                <div className='col-span-3 col-end-7'>
+                <div className='lg:col-span-3 lg:col-end-7  row-start-2 lg:row-start-1'>
                     <h1 className='text-[3vw] font-bold text-orange-500 p-3'>{product?.title}</h1>
                     <hr className='p-3' />
                     <p className='text-sm p-3 text-gray-600 font-medium'>{product?.description}</p>
@@ -54,7 +54,6 @@ export default function ProductDetails({ id }: { id: string }) {
                     </div>
                 </div>
             </div>
-
         </section>
     );
 }

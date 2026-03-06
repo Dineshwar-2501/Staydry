@@ -1,28 +1,32 @@
 "use client"
 
 
-import {   useUserData } from '@/lib/postuserdetails'
+import { useUserData } from '@/lib/postuserdetails'
 import Button from "@/utilities/Button";
 import styles from './page.module.scss'
 import { useEffect, useState } from "react";
 import { CallIcon, CloseIcon, EmailIcon, LiveChatIcon } from "@/svgComponents/Icon";
-import { ObiDetail} from '@/types/obiDetails';
-
+import { ObiDetail } from '@/types/obiDetails';
 
 
 
 export default function Page() {
+
+    // const dispatch= useDispatch()
     const [open, setOpen] = useState(false)
     const [data, setData] = useState<ObiDetail>()
     const { mutateAsync } = useUserData()
     async function handelsubmit(formdata: FormData) {
+        // const data= await postUser(formdata)
         const data = await mutateAsync(formdata)
 
-        console.log(data)
 
-        setData(data)
+
+
+
+        // dispatch(addCustomer(data))
         setOpen(true)
-
+        setData(data)
     }
 
     useEffect(() => {
@@ -32,7 +36,7 @@ export default function Page() {
     }, [open])
 
     return (
-        <section className="  mx-auto px-4 md:px-10 mt-35">
+        <section className="  mx-auto px-4 md:px-10 ">
             <section className="  mx-auto px-5">
                 <h1 className="text-4xl font-medium text-[#d4410b] mb-25">Customer Care</h1>
                 <h3 className=" text-[#d4410b] text-2xl py-5 ">Have questions or curious about something in particular?</h3>
@@ -107,10 +111,10 @@ export default function Page() {
                                     <div className="shadow-xl bg-white p-15 rounded-2xl relative" >
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Name: {data.name}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Phone number: {data.phone}</p>
-                                        <p className="font-bold text-xl text-gray-900 p-2 ">Email: {data.email}</p>
+                                        <p className="font-bold text-xl text-gray-900 p-2 ">Email: {data.mail}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Date: {data.date}</p>
                                         <p className="font-bold text-xl text-gray-900 p-2 ">Comment: {data.comment}</p>
-                                        <button title='closebtn' className='absolute top-4 right-4 cursor-pointer' onClick={() => setOpen(false)}><CloseIcon/></button>
+                                        <button title='closebtn' className='absolute top-4 right-4 cursor-pointer' onClick={() => setOpen(false)}><CloseIcon /></button>
                                     </div>
                                 </div>
                             </div>}

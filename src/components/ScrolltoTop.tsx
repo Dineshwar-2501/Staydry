@@ -27,13 +27,11 @@ export default function ScrolltoTop() {
     }, []);
     return (
         <>
-            {!showtop &&  <Button
+            {!showtop && <Button
                 className={`fixed bottom-0 right-10 z-1 p-0! rounded-full  `}
                 onClick={() => { handlescroll() }}
-                
             >
-
-                <ArrowUp/>
+                <ArrowUp />
 
             </Button>}
         </>
